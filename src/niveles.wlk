@@ -3,8 +3,13 @@ import pared.*
 import pacman.*
 import comida.*
 import wollok.game.*
+import fantasmas.*
 
 object nivel1 {
+	
+	//la lista fantasmas es requerida para el poder de la superpastilla
+	const fantasmas = [new FantasmaRojo(posicionInicial=game.at(8,9)), new FantasmaVerde(posicionInicial=game.at(8,10)), new FantasmaCeleste(posicionInicial=game.at(11,9)), new FantasmaAmarillo(posicionInicial=game.at(11,10))]
+	method fantasmas()= fantasmas
 	
 	method cargar(){
 		
@@ -12,7 +17,7 @@ object nivel1 {
 		const ancho = game.width() -1
 		const largo = game.height() -1
 		
-		var posParedes = []
+		const posParedes = []
 		(0 .. ancho).forEach{ n => posParedes.add(new Position(x=n, y=0)) } // bordeAbajo
 		(0 .. ancho).forEach{ n => posParedes.add(new Position(x=n, y=largo)) } // bordeArriba 
 		(0 .. 8).forEach{ n => posParedes.add(new Position(x=0, y=n)) } // bordeIzq
@@ -51,33 +56,30 @@ object nivel1 {
 		posParedes.forEach { p => self.dibujar(new Pared(position = p)) }		
 		
 		//Comida
-		const comidas = [new Position(x=1, y=11), new Position(x=1, y=10),new Position(x=1, y=9), new Position(x=1, y=8)]
-			.map{ p => self.dibujar(new Comida(position = p)) }
+		
+		const superPastillas = [new SuperPastilla(position=game.at(1,5)),new SuperPastilla(position=game.at(18,5)), new SuperPastilla(position=game.at(1,17)),new SuperPastilla(position=game.at(18,17))]
+		superPastillas.forEach{p=>game.addVisual(p)}
 		
 		//Fantasmas
-		
-		
+		fantasmas.forEach{f=>game.addVisual(f)}
 		
 		//Pacman
 		
 		game.addVisual(pacman)
 		
 		//Teclado
-		keyboard.up().onPressDo{ pacman.irArriba()}
-		keyboard.down().onPressDo{ pacman.irAbajo()}
-		keyboard.left().onPressDo{ pacman.irIzquierda()}
-		keyboard.right().onPressDo{ pacman.irDerecha()}
+		controles.cargar()
 		
 		keyboard.r().onPressDo{ self.restart() }
 		//keyboard.any().onPressDo{ self.comprobarSiGano(comida) }
 		
 		//Colisiones
 		game.whenCollideDo(pacman, { e => pacman.comer(e) })
-		
 	}
 	
 	method restart() {
 		game.clear()
+		pacman.position(game.at(9,7))
 		self.cargar()
 	}
 	

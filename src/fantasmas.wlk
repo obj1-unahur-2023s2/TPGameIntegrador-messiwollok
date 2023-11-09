@@ -1,58 +1,45 @@
 import wollok.game.*
 import pacman.*
-import pepita.*
 
 class Fantasma{
-	var property position 
-	var nro 
-	method image() = "fantasma" +  nro + ".png"
-	method esFantasma() = true
+	var posicionInicial //necesita una posicion inicial para saber donde revivir cuando es comido
+	var property position = posicionInicial
+	var puedeComerse = false //la condicion cambia cuando se asusta(pacman come la super pastilla)
+	 
+	method image()
+	
+	method serComido(){
+		if (puedeComerse){ //si puede ser comido, desaparece y revive luego de un tiempo
+			game.removeVisual(self)
+			game.schedule(5000, {game.addVisualIn(self, posicionInicial)})} //el nro indica el tiempo que tarda en revivir
+		else{ //si no puede ser comido, pacman muere al intentar comerlo, y resta 500 puntos
+			pacman.morir()
+			pacman.restarPuntos(500)
+		}
+	}
+	
+	method asustarse(){ //se activa cuando pacman come la super pastilla
+		puedeComerse = true //habilita que pacman pueda comerlo
+		//aca deberia ir el cambio de visual a la de fantasma azul
+		game.schedule(10000, { //deshabilita que pacman pueda comerlo, tras 10 seg
+			puedeComerse = false
+			//aca deberia ir el cambio de visual a la original
+		})
+	}
 }
 
-class Obstaculo{
-	method position() = game.center()
-	method image() = "obstaculoAzul.png"
-	method cambiarImagen()  = game.removeVisual(self)
-	method esFantasma() = false
+class FantasmaRojo inherits Fantasma {
+	override method image()="fantasma1.png"
 }
 
-object juego{
-	
-	const personaje = pacman
-	const obstaculo = new Obstaculo()
-	method iniciar() {
+class FantasmaVerde inherits Fantasma {
+	override method image()="fantasma2.png"
+}
 
-		game.height(15)
-		game.width(15)
-		game.cellSize(50)
-		game.title("Pacman")
-		self.agregarVisuales()
-		self.configurarTeclas()
-		
-		
-	}
-	method agregarVisuales() {
-		game.addVisual(personaje)
-		4.times({x=>self.agregarFantasma(x)})
-		game.addVisual(obstaculo)
-	
-	}
-	method agregarFantasma(valor) {
-		game.addVisual( 
-			new Fantasma( 
-				position = game.at(valor,10)  ,
-				nro = valor % 5 
-			)
-		) 
-	}
-	method configurarTeclas() {
-		keyboard.up().onPressDo{ personaje.irArriba()}
-		keyboard.down().onPressDo{ personaje.irAbajo()}
-		keyboard.left().onPressDo{ personaje.irIzquierda()}
-		keyboard.right().onPressDo{ personaje.irDerecha()}
-		
-		 
-	}
-	
-	
+class FantasmaCeleste inherits Fantasma {
+	override method image()="fantasma3.png"
+}
+
+class FantasmaAmarillo inherits Fantasma {
+	override method image()="fantasma4.png"
 }
