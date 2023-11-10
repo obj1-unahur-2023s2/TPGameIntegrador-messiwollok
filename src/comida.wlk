@@ -8,6 +8,7 @@ class Comida {
 		pacman.sumarPuntos(100)
 	} 
 	method image() = "comida.png"
+	method puedePisarte(obj) = true
 }
 
 class SuperPastilla inherits Comida{
@@ -19,7 +20,7 @@ class SuperPastilla inherits Comida{
 }
 
 class SuperVelocidad inherits Comida{
-	override method image() = "poder.png" //deje la misma imagen del otro poder pero podria cambiarse 
+	override method image() = "comida.png" //deje la misma imagen del otro poder pero podria cambiarse 
 	override method serComido(){
 		super()
 		poderes.superVelocidad()
