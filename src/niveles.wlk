@@ -2,13 +2,13 @@ import comida.*
 import pared.*
 import pacman.*
 import comida.*
-import wollok.game.*
 import fantasmas.*
+import wollok.game.*
+import direcciones.*
 
 object nivel1 {
 	
-	//la lista fantasmas es requerida para el poder de la superpastilla
-	const fantasmas = [new FantasmaRojo(posicionInicial=game.at(8,9)), new FantasmaVerde(posicionInicial=game.at(8,10)), new FantasmaCeleste(posicionInicial=game.at(11,9)), new FantasmaAmarillo(posicionInicial=game.at(11,10))]
+	const fantasmas = [new Fantasma(posicionInicial=game.at(9,9), numero = 1), new Fantasma(posicionInicial=game.at(9,10), numero = 2), new Fantasma(posicionInicial=game.at(10,9), numero = 3), new Fantasma(posicionInicial=game.at(10,10), numero = 4)]
 	method fantasmas()= fantasmas
 	
 	method cargar(){
@@ -17,13 +17,13 @@ object nivel1 {
 		const ancho = game.width() -1
 		const largo = game.height() -1
 		
-		const posParedes = []
+		var posParedes = []
 		(0 .. ancho).forEach{ n => posParedes.add(new Position(x=n, y=0)) } // bordeAbajo
 		(0 .. ancho).forEach{ n => posParedes.add(new Position(x=n, y=largo)) } // bordeArriba 
-		(0 .. 8).forEach{ n => posParedes.add(new Position(x=0, y=n)) } // bordeIzq
-		(10 .. largo).forEach{ n => posParedes.add(new Position(x=0, y=n)) } // bordeIzq 
+		(0 .. 8).forEach{ n => posParedes.add(new Position(x=0, y=n)) } // bordeIzq 
+		(10 .. 20).forEach{ n => posParedes.add(new Position(x=0, y=n)) } // bordeIzq 
 		(0 .. 8).forEach{ n => posParedes.add(new Position(x=19, y=n)) } // bordeDer
-		(10 .. largo).forEach{ n => posParedes.add(new Position(x=19, y=n)) } // bordeDer
+		(10 .. 20).forEach{ n => posParedes.add(new Position(x=19, y=n)) } // bordeDer
 		
 		posParedes.addAll([new Position(x=2,y=2), new Position(x=3,y=2),new Position(x=4,y=2), new Position(x=5,y=2),new Position(x=6,y=2),
 		new Position(x=17,y=2), new Position(x=16,y=2), new Position (x=15,y=2), new Position(x=15,y=2), new Position(x=14,y=2), new Position(x=13,y=2),
@@ -56,13 +56,24 @@ object nivel1 {
 		posParedes.forEach { p => self.dibujar(new Pared(position = p)) }		
 		
 		//Comida
-		
 		const superPastillas = [new SuperPastilla(position=game.at(1,5)),new SuperPastilla(position=game.at(18,5)), new SuperPastilla(position=game.at(1,17)),new SuperPastilla(position=game.at(18,17))]
 		superPastillas.forEach{p=>game.addVisual(p)}
 		
 		//Fantasmas
-		fantasmas.forEach{f=>game.addVisual(f)}
+			
 		
+		
+		fantasmas.forEach { rival => 
+			game.addVisual(rival)
+			game.whenCollideDo(rival, { personaje =>
+				if(personaje.equals(pacman)){personaje.morir()} // se maneja un método polimórfico
+			})
+			game.onTick(1.randomUpTo(5) * 500, "movimiento", {
+				rival.avanzar()
+			})
+		}
+		
+	
 		//Pacman
 		
 		game.addVisual(pacman)
@@ -73,8 +84,10 @@ object nivel1 {
 		keyboard.r().onPressDo{ self.restart() }
 		//keyboard.any().onPressDo{ self.comprobarSiGano(comida) }
 		
-		//Colisiones
-		game.whenCollideDo(pacman, { e => pacman.comer(e) })
+		//Colision pared
+		game.whenCollideDo(pacman,{e => pacman.comer(e)})
+		
+		
 	}
 	
 	method restart() {
@@ -88,9 +101,6 @@ object nivel1 {
 		return dibujo
 	}
 	
-	method comprobarSiGano(comida) {
-		if (comida.isEmpty()) {
-			game.say(pacman, "GANASTE!") 
-		}
-	}
+	
+	
 }
