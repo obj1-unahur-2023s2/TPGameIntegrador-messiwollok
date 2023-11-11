@@ -16,13 +16,6 @@ object logo2{
 		method image()= "pacmanlogo2.jpg"
 }
 
-object textoPuntos {
-	
-	var property position = game.at(21,13)
-	
-	method text() = "PUNTOS"
-}
-
 object sonido {
 	
 	method play(){
