@@ -16,6 +16,8 @@ class Fantasma{
 	method serComido(){
 		if (puedeComerse){ //si puede ser comido, desaparece y revive luego de un tiempo
 			position = posicionInicial
+			pacman.sumarPuntos(1000)
+			contador.actualizarPuntos()
 			game.removeVisual(self)
 			numero = skinPrevio
 			game.schedule(5000, {game.addVisual(self)})
@@ -24,6 +26,7 @@ class Fantasma{
 		else{ //si no puede ser comido, pacman muere al intentar comerlo, y resta 500 puntos
 			pacman.morir()
 			pacman.restarPuntos(500)
+			contador.actualizarPuntos()
 		}
 	}
 	method asustarse(){ //se activa cuando pacman come la super pastilla
