@@ -14,7 +14,21 @@
 
 ## Reglas de Juego / Instrucciones
 
-(Escribirlas)
+-Primeramente para mover al Pac-man se debe mover con: 
+  W : Que hace el movimiento hacia arriba.
+  A : Que hace el movimiento hacia la izquierda.
+  D : Que hace el movimiento hacia derecha.
+  S : Que hace el movimiento hacia abajo.
+
+   
+
+  Los fantasmas se mueven aleatoriamente, por lo tanto, Pac-man debe avanzar por el tablero comiendo las pelotitas. Debe comer todas para poder pasar de nievel.
+
+  Pac-Man tiene la posibilidad de comer una comida especial para poder tener un poder, el cual hace que los fantasmas sean vulnerables ante él.
+
+  Los fantasmas, dependiendo el nivel, logran obtener poderes contra Pac-Man, dependiendo de ciertos factores que se veran en el juego. 
+
+  
 
 
 ## Otros
