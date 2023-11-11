@@ -5,13 +5,30 @@ import comida.*
 import fantasmas.*
 import wollok.game.*
 import direcciones.*
+import elementos.*
 
 object nivel1 {
 	
 	const fantasmas = [new Fantasma(posicionInicial=game.at(9,9), numero = 1), new Fantasma(posicionInicial=game.at(9,10), numero = 2), new Fantasma(posicionInicial=game.at(10,9), numero = 3), new Fantasma(posicionInicial=game.at(10,10), numero = 4)]
 	method fantasmas()= fantasmas
 	
+	method inicio(){
+		game.clear()
+		game.title("Pacman")
+		game.width(26)
+		game.height(20)
+		game.ground("fondo.jpeg")
+		game.addVisual(panelInicio)
+		keyboard.s().onPressDo({sonido.play()})
+		keyboard.s().onPressDo{self.cargar()}
+	}
+	
 	method cargar(){
+		game.clear()
+		game.title("Pacman")
+		game.height(20)
+		game.width(20)
+		game.ground("fondo.jpeg")
 		
 		//Paredes
 		const ancho = game.width() -1
@@ -73,6 +90,9 @@ object nivel1 {
 			})
 		}
 		
+		//VisualesTablero
+		game.addVisual(logo1)
+		game.addVisual(logo2)
 	
 		//Pacman
 		

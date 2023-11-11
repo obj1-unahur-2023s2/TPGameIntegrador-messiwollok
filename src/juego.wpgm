@@ -2,10 +2,6 @@ import wollok.game.*
 import niveles.*
 
 program juego {
-	game.title("Pacman")
-	game.height(20)
-	game.width(20)
-	game.ground("fondo.jpeg")
-	nivel1.cargar()
+	nivel1.inicio()
 	game.start()
 }

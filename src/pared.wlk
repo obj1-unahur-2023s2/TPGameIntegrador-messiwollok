@@ -7,5 +7,11 @@ class Pared {
 	method puedePisarte(obj) = false
 	
 	
-	method image() = "muro.png"
+	method image() = "A10.png"
+}
+
+class ParedLineaFantasma {
+	var property position
+	
+	method image() = "lineas.jpeg"
 }
