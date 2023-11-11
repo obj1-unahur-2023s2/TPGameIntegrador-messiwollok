@@ -29,7 +29,9 @@ object nivel1 {
 		game.height(20)
 		game.width(20)
 		game.ground("fondo.jpeg")
-		
+		grupoVidas.iniciar()
+		game.addVisual(contador)
+
 		//Paredes
 		const ancho = game.width() -1
 		const largo = game.height() -1
