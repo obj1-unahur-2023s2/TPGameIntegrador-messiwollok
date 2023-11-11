@@ -2,12 +2,15 @@ import wollok.game.*
 import direcciones.*
 import fantasmas.*
 import niveles.*
+import elementos.*
 
 object pacman {
-	var property position = game.at(1,1)
+	
+	var property position = game.at(1,18)
+	const property posicion = position
 	var property direccion = null
-	var puntos = 0
-	var vidas = 3
+	var property puntos = 0
+	var property vidas = 3
 	
 	
 	method puedePisarte(obj) = true
@@ -23,7 +26,7 @@ object pacman {
 	}
 	
 	method sumarPuntos(cant){puntos += cant}
-	method restarPuntos(cant){puntos-=cant}
+	method restarPuntos(cant){puntos = 0.max(puntos - cant)}
 	
 	method retroceder(){
 		position = direccion.opuesto().siguiente(position)
@@ -44,14 +47,20 @@ object pacman {
 	
 	method morir(){
 		//pierde una vida
-		vidas --
+		vidas -= 1.max(0)
+		grupoVidas.image("vidas" + vidas + ".png")
 		//vuelve a su posicion inicial
 		position = game.at(1,1)
 		//si se queda sin vidas finaliza el juego
-		if (vidas <= 0)
-			game.stop()
+		if(vidas == 0) { 
+			game.removeVisual(grupoVidas)
+			self.perderJuego()
+		}
 	}
-	
+	method perderJuego() {	
+		game.removeVisual(self)
+		gameOver.ejecutar()
+	}
 	method image() = "pacman.png"
 }
 
@@ -68,6 +77,7 @@ object controles{
 object poderes{
 	method superPastilla(){
 		nivel1.fantasmas().forEach{x=>x.asustarse()}
+		
 	}
 	
 	method superVelocidad(){
@@ -78,5 +88,12 @@ object poderes{
 			game.removeTickEvent("velocidad") //finaliza el poder
 			game.onTick(500, "moverPacman", {pacman.avanzar()}) //vuelve a iniciar el movimiento normal
 		})
+		
+	}
+}
+
+object gameOver {
+	method ejecutar(){
+		game.schedule(1000,{game.stop()})
 	}
 }
