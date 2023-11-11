@@ -20,7 +20,11 @@ class Fantasma{
 			contador.actualizarPuntos()
 			game.removeVisual(self)
 			numero = skinPrevio
-			game.schedule(5000, {game.addVisual(self)})
+			game.schedule(5000, {
+				if(not game.hasVisual(self)){
+					game.addVisual(self)
+				}
+			})
 			
 			} //el nro indica el tiempo que tarda en revivir
 		else{ //si no puede ser comido, pacman muere al intentar comerlo, y resta 500 puntos
