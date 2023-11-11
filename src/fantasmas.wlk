@@ -2,6 +2,7 @@ import wollok.game.*
 import pacman.*
 import direcciones.*
 import pared.*
+import elementos.*
 
 class Fantasma{
 	var posicionInicial //necesita una posicion inicial para saber donde revivir cuando es comido
