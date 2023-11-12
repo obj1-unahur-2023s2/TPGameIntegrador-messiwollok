@@ -56,16 +56,7 @@ class Fantasma{
 		})
 	}
 	
-	method moverHaciaPacman() {
-		const posicionPacman = nivel1.obtenerPosicionPacman()
-		// Calcula la dirección para moverse hacia Pacman.
-		const direccionX = (posicionPacman.x() - position.x())
-		const direccionY = (posicionPacman.y() - position.y())
-		// Actualiza la dirección del fantasma.
-		position = game.at(direccionX, direccionY)
-		// Valida el lugar libre antes de mover el fantasma.
-		self.validarLugarLibre()
-	}
+	
 	method iniciar(){
 		game.onTick(500,"movimiento" ,{self.avanzar()
 				game.schedule(3000, {self.direccionAzar()})
@@ -153,20 +144,25 @@ class Fantasma{
 	
 }
 
-object grupoFantasmas{
+object grupoFantasma inherits Fantasma(posicionInicial = 0, numero = 0){
 	const fantasma1 =new Fantasma(posicionInicial=game.at(9,10), numero = 2, direccion= derecha)
 	const fantasma2 =new Fantasma(posicionInicial=game.at(10,10), numero = 4)
 	const fantasma3 =new Fantasma(posicionInicial=game.at(11,10), numero = 1)
 	const fantasma4 =new Fantasma(posicionInicial=game.at(8,10), numero = 3)
 	
-	const property fantasmas = [fantasma1,fantasma2,fantasma3,fantasma4]
+	const fantasmas = [fantasma1,fantasma2,fantasma3,fantasma4]
 	
 	method introducir(){
 		fantasmas.forEach( {rival => 
 			game.addVisual(rival)
+			game.whenCollideDo(rival, { personaje =>
+				if(personaje.equals(pacman)and not(rival.estaAsustado())){personaje.morir()} // se maneja un método polimórfico
 			})
-		game.onTick(500, "moverFantasmas", {self.fantasmas().forEach{x=>x.avanzar()}})
+			
+			})
+	}
+	method asustarGrupo(){
+		fantasmas.forEach{x=>x.asustarse()}
 	}
 }
-
 
