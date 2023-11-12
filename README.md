@@ -10,7 +10,8 @@
 
 ## Capturas
 
-(agregar)
+![pac 2](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/965f44f9-4682-4814-a032-cc827ddb8adf)
+
 
 ## Reglas de Juego / Instrucciones
 
