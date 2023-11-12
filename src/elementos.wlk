@@ -11,23 +11,25 @@ class Visual{
 	method remover(){game.removeVisual(self)}
 }
 
-object panelInicio inherits Visual(image= "PacManInicio.jpg"){
+object inicio inherits Visual(image= "PacManInicio.jpg",position= game.at(0,3)){
 		override method ejecutar(){
 			super()
 			game.schedule(4000,{self.remover()})
 		}
 }
 
-object menu inherits Visual(image = "fondo.jpeg"){
+object menu inherits Visual(image = "fondo.png"){
 	const property ajustes = new Visual(image = "")
 	
 	override method ejecutar(){
 		super()
 		//soundPrincipal.play()
 		keyboard.enter().onPressDo{
-			nivel1.cargar()
+			nivel1.iniciar()
 		}
-		keyboard.a().onPressDo({self.setting()})
+		game.width(26)
+		game.height(20)
+		//keyboard.a().onPressDo({self.setting()})
 	}
 	method setting(){
 		game.addVisual(ajustes)
@@ -45,12 +47,15 @@ object victoria inherits Visual(image = "victoria.png"){
 	method siguientePartida(){}
 }
 
-object gameOver inherits Visual(image = " "){
+object gameOver inherits Visual(image = "fondo.png "){
 	override method ejecutar(){
 		super()
 		//soundPrincipal.stop()
 		//soundGameOver.play()
-		game.schedule(5000,{game.stop()})
+		
+		game.schedule(500,{
+			game.addVisual(terminado)
+		})
 	}
 }
 
@@ -100,3 +105,18 @@ object contador{
 		self.actualizarPuntos()
 	}
 }
+
+object mostrarPuntos{
+	
+	var property text= "PUNTOS: " + pacman.puntos().toString()
+	var property position= game.at(13,10)
+	var property textColor= "#FFFFFF"
+	
+}
+
+object terminado {
+	method position() = game.at(5,4)
+	method image() = "gameover.jpg"
+}
+
+
