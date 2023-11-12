@@ -83,19 +83,22 @@ object controles{
 
 object poderes{
 	method superPastilla(){
-		nivel1.fantasmas().forEach{x=>x.asustarse()}
-		
+		grupoFantasmas.fantasmas().forEach{x=>x.asustarse()}	
 	}
 	
 	method superVelocidad(){
-		
 		game.removeTickEvent("moverPacman") //cancela el movimiento inicial
-		game.onTick(250, "velocidad", {pacman.avanzar()}) //inicia el poder, el nro indica los milisegundos entre cada paso
+		game.onTick(200, "velocidad", {pacman.avanzar()}) //inicia el poder, el nro indica los milisegundos entre cada paso
 		game.schedule(5000, { //el nro indica la duracion del poder en milisegundos
 			game.removeTickEvent("velocidad") //finaliza el poder
-			game.onTick(500, "moverPacman", {pacman.avanzar()}) //vuelve a iniciar el movimiento normal
-		})
-		
+			game.onTick(350, "moverPacman", {pacman.avanzar()}) //vuelve a iniciar el movimiento normal
+		})	
 	}
+	
+		method congelarFantasmas(){
+		game.removeTickEvent("moverFantasmas")
+		game.schedule(6000, {game.onTick(1.randomUpTo(5) * 350, "moverFantasmas", {grupoFantasmas.fantasmas().forEach{x=>x.avanzar()}})})
+	}
+	
 }
 

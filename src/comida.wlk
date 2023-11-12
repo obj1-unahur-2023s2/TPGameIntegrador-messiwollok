@@ -16,19 +16,26 @@ class Comida {
 class SuperPastilla inherits Comida{
 	override method image()= "poder.png"
 	override method serComido(){
-		super()
 		poderes.superPastilla()
 		pacman.sumarPuntos(300)
-		contador.actualizarPuntos()
+		super()
 	}
 }
 
 class SuperVelocidad inherits Comida{
 	override method image() = "comida.png" //deje la misma imagen del otro poder pero podria cambiarse 
 	override method serComido(){
-		super()
 		poderes.superVelocidad()
 		pacman.sumarPuntos(200)
-		contador.actualizarPuntos()
+		super()
+	}	
+}
+
+class PastillaDeHielo inherits Comida{
+	override method image() = "poder.png" //deje la misma imagen del otro poder pero podria cambiarse 
+	override method serComido(){
+		poderes.congelarFantasmas()
+		pacman.sumarPuntos(200)
+		super()
 	}	
 }

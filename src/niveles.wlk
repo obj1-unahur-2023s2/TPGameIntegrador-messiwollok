@@ -24,8 +24,9 @@ class Nivel{
 		}
 		game.addVisual(logo1)
 		game.addVisual(logo2)
-		const fantasmas = new GrupoFantasma(numero = 1, posicionInicial= game.center())
-		fantasmas.introducir()
+		grupoFantasmas.introducir()
+		//const pastillasPoderes = [new SuperPastilla(position=game.at(1,6)), new SuperVelocidad(position=game.at(18,6)), new PastillaDeHielo(position=game.at(18,18))]
+		//pastillasPoderes.forEach{c=>game.addVisual(c)}
 	}
 	method pasarNivel(){
 		grupoVidas.resetear()
