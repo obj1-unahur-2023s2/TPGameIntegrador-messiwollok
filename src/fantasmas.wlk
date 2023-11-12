@@ -63,10 +63,6 @@ class Fantasma{
 			})
 	}
 	
-	method dejarMover(){
-		game.removeTickEvent("movimiento")
-	}
-	
 	method avanzar(){
 		
 		//da un paso hacia la direccion indicada en su variable
@@ -83,34 +79,9 @@ class Fantasma{
 		direccion = direcciones.get(0.randomUpTo(3))
 	}
 	
-	method direccionNueva(){
-		//devuelve una de las 4 direciones aleatoriamente
-		const opcion1 = [derecha,izquierda,abajo]
-		const opcion2 = [arriba,izquierda,abajo]
-		const opcion3 = [derecha,izquierda,arriba]
-		const opcion4 = [derecha,abajo,arriba]
-		if(direccion.equals(arriba)){
-			direccion = opcion1.get(0.randomUpTo(2))
-		}
-		else{
-			if(direccion.equals(derecha)){
-			direccion = opcion2.get(0.randomUpTo(2))
-			}
-			else{
-				if(direccion.equals(abajo)){
-					direccion = opcion3.get(0.randomUpTo(2))
-				}
-				else{
-					direccion = opcion4.get(0.randomUpTo(2))
-				}
-			}
-		}
-		
-	}
-	
 	method moverAzar(){
 		//obtiene una direccion al azar y valida si es posible moverse
-		self.direccionNueva()
+		self.direccionAzar()
 		self.validarLugarLibre()
 	}
 	
@@ -121,7 +92,7 @@ class Fantasma{
 			.all{ obj => obj.puedePisarte(self) } 
 		
 		if(not pos){
-			self.direccionNueva()
+			self.direccionAzar()
 			
 		}
 		else{
@@ -144,7 +115,7 @@ class Fantasma{
 	
 }
 
-object grupoFantasma inherits Fantasma(posicionInicial = 0, numero = 0){
+object grupoFantasma {
 	const fantasma1 =new Fantasma(posicionInicial=game.at(9,10), numero = 2, direccion= derecha)
 	const fantasma2 =new Fantasma(posicionInicial=game.at(10,10), numero = 4)
 	const fantasma3 =new Fantasma(posicionInicial=game.at(11,10), numero = 1)
@@ -157,12 +128,22 @@ object grupoFantasma inherits Fantasma(posicionInicial = 0, numero = 0){
 			game.addVisual(rival)
 			game.whenCollideDo(rival, { personaje =>
 				if(personaje.equals(pacman)and not(rival.estaAsustado())){personaje.morir()} // se maneja un método polimórfico
+			
+			
 			})
 			
 			})
 	}
+	
+	method moverGrupo(){
+		fantasmas.forEach( {rival => rival.iniciar()})
+			
+	}
+	
 	method asustarGrupo(){
 		fantasmas.forEach{x=>x.asustarse()}
 	}
+	
 }
+
 
