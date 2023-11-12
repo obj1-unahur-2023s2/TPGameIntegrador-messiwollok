@@ -1,7 +1,6 @@
 import wollok.game.*
-import niveles.*
+import config.*
 
 program juego {
-	nivel1.inicio()
-	game.start()
+	juego.iniciarJuego()
 }
