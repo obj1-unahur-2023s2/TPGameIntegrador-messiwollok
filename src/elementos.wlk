@@ -119,4 +119,3 @@ object terminado {
 	method image() = "gameover.jpg"
 }
 
-
