@@ -10,7 +10,7 @@ class Pared {
 			nivel.cargar()
 	}
 	
-	method image() = "A10.png"
+	method image() = "muro.png"
 }
 
 class ParedLineaFantasma {
