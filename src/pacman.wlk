@@ -57,7 +57,7 @@ object pacman {
 		vidas -= 1.max(0)
 		grupoVidas.image("vidas" + vidas + ".png")
 		//vuelve a su posicion inicial
-		position = game.at(10,12)
+		position = posicion
 		//si se queda sin vidas finaliza el juego
 		if(vidas == 0) { 
 			game.removeVisual(grupoVidas)
