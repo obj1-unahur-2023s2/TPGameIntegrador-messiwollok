@@ -1,86 +1,103 @@
 import wollok.game.*
 import pacman.*
 import elementos.*
+import direcciones.*
 
 class Comida {
 	const property position
 	method serComido(){
-		game.removeVisual(self)
+		
 		pacman.sumarPuntos(100)
 		contador.actualizarPuntos()
+		game.removeVisual(self)
+		comida1.eliminar(self)
 	} 
-	method image() = "cereza.png"
+	method image()
 	method puedePisarte(obj) = true
+	method iniciar(){game.addVisual(self)}
 }
 
 class SuperPastilla inherits Comida{
 	override method image()= "pastilla.png"
 	override method serComido(){
 		super()
-		
+		poderes.superPastilla()
 		pacman.sumarPuntos(300)
 		contador.actualizarPuntos()
-		poderes.superPastilla()
 	}
 }
+
+class Cereza inherits Comida {
+	override method image() = "cereza.png"
+
+}
+
 
 class SuperVelocidad inherits Comida{
 	override method image() = "sandia.png" //deje la misma imagen del otro poder pero podria cambiarse 
 	override method serComido(){
 		super()
-		
+		poderes.superVelocidad()
 		pacman.sumarPuntos(200)
 		contador.actualizarPuntos()
-		poderes.superVelocidad()
 	}	
 }
 
 object comida1 {
+	var comidas = []
+	
 	method cargar(){
-
-		var comidas = []
-		(1 .. 18).forEach{ n => comidas.add(new Position(x=n, y=1)) } // bordeAbajo
-		(1 .. 5).forEach{ n => comidas.add(new Position(x=n, y=5)) }
-		(14 .. 18).forEach{ n => comidas.add(new Position(x=n, y=5)) }
-		(7 .. 12).forEach{ n => comidas.add(new Position(x=n, y=4)) }
-		(7 .. 12).forEach{ n => comidas.add(new Position(x=n, y=7)) }
-		(1 .. 8).forEach{ n => comidas.add(new Position(x=n, y=18)) }
-		(11 .. 18).forEach{ n => comidas.add(new Position(x=n, y=18)) }
-		(11 .. 17).forEach{ n => comidas.add(new Position(x=1, y=n)) }
-		(7 .. 11).forEach{ n => comidas.add(new Position(x=3, y=n)) }
-		(11 .. 17).forEach{ n => comidas.add(new Position(x=18, y=n)) }
-		(7 .. 11).forEach{ n => comidas.add(new Position(x=16, y=n)) }
-		(6 .. 17).forEach{ n => comidas.add(new Position(x=6, y=n)) }
-		(6 .. 17).forEach{ n => comidas.add(new Position(x=13, y=n)) }
-		(14 .. 17).forEach{ n => comidas.add(new Position(x=4, y=n)) }
-		(14 .. 17).forEach{ n => comidas.add(new Position(x=15, y=n)) }
-		(12 .. 17).forEach{ n => comidas.add(new Position(x=8, y=n)) }
-		(12 .. 17).forEach{ n => comidas.add(new Position(x=11, y=n)) }
 		
-		comidas.addAll([new Position(x=1,y=2),new Position(x=1,y=3),new Position(x=2,y=3),new Position(x=3,y=4), new Position(x=1,y=6),new Position(x=1,y=7),new Position(x=2,y=7),
-			new Position(x=2,y=11),new Position(x=2,y=14),new Position(x=3,y=14),new Position(x=4,y=11),new Position(x=4,y=12),new Position(x=5,y=12),new Position(x=8,y=6), 
-			new Position(x=8,y=5),new Position(x=7,y=12),new Position(x=5,y=3),new Position(x=5,y=4),new Position(x=6,y=3),new Position(x=7,y=2),
-			new Position(x=5,y=6),new Position(x=5,y=8),new Position(x=4,y=8),new Position(x=11,y=5),new Position(x=11,y=6),new Position(x=12,y=2),new Position(x=12,y=3),new Position(x=10,y=2),
-			new Position(x=9,y=2),new Position(x=13,y=3),new Position(x=14,y=4),new Position(x=14,y=6),new Position(x=16,y=4),new Position(x=17,y=3),
-			new Position(x=18,y=3),new Position(x=18,y=6),new Position(x=18,y=7),new Position(x=17,y=7),new Position(x=15,y=8),new Position(x=14,y=8),new Position(x=18,y=2),
-			new Position(x=15,y=11),new Position(x=15,y=12),new Position(x=14,y=12),new Position(x=12,y=12),new Position(x=12,y=15),new Position(x=14,y=15),new Position(x=16,y=14),
-			new Position(x=9,y=14),new Position(x=10,y=14),new Position(x=10,y=12),new Position(x=9,y=12)])
+		(1 .. 18).forEach{ n => comidas.add(new Cereza(position = game.at(n, 1) )) } // bordeAbajo
+		(1 .. 5).forEach{ n => comidas.add(new Cereza(position = game.at(n, 5)) )}
+		(14 .. 18).forEach{ n => comidas.add(new Cereza(position = game.at(n, 5))) }
+		(7 .. 12).forEach{ n => comidas.add(new Cereza(position = game.at(n, 4)) )}
+		(7 .. 12).forEach{ n => comidas.add(new Cereza(position = game.at(n, 7)) )}
+		(1 .. 8).forEach{ n => comidas.add(new Cereza(position = game.at(n, 18))) }
+		(11 .. 18).forEach{ n => comidas.add(new Cereza(position = game.at(n, 18))) }
+		(11 .. 17).forEach{ n => comidas.add(new Cereza(position = game.at(1, n)) )}
+		(7 .. 11).forEach{ n => comidas.add(new Cereza(position = game.at(3, n)) )}
+		(11 .. 17).forEach{ n => comidas.add(new Cereza(position = game.at(18, n))) }
+		(7 .. 11).forEach{ n => comidas.add(new Cereza(position = game.at(16, n)) )}
+		(6 .. 17).forEach{ n => comidas.add(new Cereza(position = game.at(6, n)) )}
+		(6 .. 17).forEach{ n => comidas.add(new Cereza(position = game.at(13, n)) )}
+		(14 .. 17).forEach{ n => comidas.add(new Cereza(position = game.at(4, n)) )}
+		(14 .. 17).forEach{ n => comidas.add(new Cereza(position = game.at(15, n)) )}
+		(12 .. 17).forEach{ n => comidas.add(new Cereza(position = game.at(8, n)) )}
+		(12 .. 17).forEach{ n => comidas.add(new Cereza(position = game.at(11, n)) )}
+		
+		comidas.addAll([new Cereza(position = game.at(1,2)),new Cereza(position = game.at(1,3)),new Cereza(position = game.at(2,3)),new Cereza(position = game.at(3,4)), new Cereza(position = game.at(1,6)),
+			new Cereza(position = game.at(1,7)),new Cereza(position = game.at(2,7)),new Cereza(position = game.at(2,11)),new Cereza(position = game.at(2,14)),new Cereza(position = game.at(3,14)),
+			new Cereza(position = game.at(4,11)),new Cereza(position = game.at(4,12)),new Cereza(position = game.at(5,12)),new Cereza(position = game.at(8,6)), new Cereza(position = game.at(8,5)),
+			new Cereza(position = game.at(7,12)),new Cereza(position = game.at(5,3)),new Cereza(position = game.at(5,4)),new Cereza(position = game.at(6,3)),new Cereza(position = game.at(7,2)),
+			new Cereza(position = game.at(5,6)),new Cereza(position = game.at(5,8)),new Cereza(position = game.at(4,8)),new Cereza(position = game.at(11,5)),new Cereza(position = game.at(11,6)),
+			new Cereza(position = game.at(12,2)),new Cereza(position = game.at(12,3)),new Cereza(position = game.at(10,2)),new Cereza(position = game.at(9,2)),new Cereza(position = game.at(13,3)),
+			new Cereza(position = game.at(14,4)),new Cereza(position = game.at(14,6)),new Cereza(position = game.at(16,4)),new Cereza(position = game.at(17,3)),new Cereza(position = game.at(18,3)),
+			new Cereza(position = game.at(18,6)),new Cereza(position = game.at(18,7)),new Cereza(position = game.at(17,7)),new Cereza(position = game.at(15,8)),new Cereza(position = game.at(14,8)),
+			new Cereza(position = game.at(18,2)),new Cereza(position = game.at(15,11)),new Cereza(position = game.at(15,12)),new Cereza(position = game.at(14,12)),new Cereza(position = game.at(12,12)),
+			new Cereza(position = game.at(12,15)),new Cereza(position = game.at(14,15)),new Cereza(position = game.at(16,14)),new Cereza(position = game.at(9,14)),new Cereza(position = game.at(10,14)),
+			new Cereza(position = game.at(10,12)),new Cereza(position = game.at(9,12))])
 		
 		
-		comidas.forEach { p => self.dibujar(new Comida(position = p)) }
 		
-		var pastillas = []
 		
-		pastillas.addAll([new Position(x=14,y=3),new Position(x=5,y=15),new Position(x=7,y=3),new Position(x=17,y=14)])
-		pastillas.forEach { p => self.dibujar(new SuperPastilla(position = p)) }
+		comidas.addAll([new SuperPastilla(position = game.at(14,3)),new SuperPastilla(position = game.at(5,15)),new SuperPastilla(position = game.at(7,3)),new SuperPastilla(position = game.at(17,14))])
 		
-		var sandias = []
-		sandias.addAll([new Position(x=16,y=3),new Position(x=3,y=3),new Position(x=17,y=11),new Position(x=7,y=15)])
-		sandias.forEach { p => self.dibujar(new SuperVelocidad(position = p)) }
 		
+		comidas.addAll([new SuperVelocidad(position = game.at(16,3)),new SuperVelocidad(position = game.at(3,3)),new SuperVelocidad(position = game.at(17,11)),new SuperVelocidad(position = game.at(7,15))])
+		
+		
+		comidas.forEach({x=>x.iniciar()})
 	}
-	method dibujar(dibujo) {
-		game.addVisual(dibujo)
-		return dibujo
+
+	method eliminar(comida){
+		if(comidas.size()-1 > 0){
+			comidas.remove(comida)		
+		}
+		else{
+			comidas.clear()
+			game.schedule(500,{pacman.pasarNivel()})
+			
+		}
 	}
 }
