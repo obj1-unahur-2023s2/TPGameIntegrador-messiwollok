@@ -10,6 +10,7 @@ object juego {
 		game.start()
 	}
 	method config(){
+		
 		self.configVentana()
 		menu.ejecutar()
 		inicio.ejecutar()

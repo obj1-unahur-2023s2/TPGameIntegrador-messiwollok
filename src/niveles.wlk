@@ -13,6 +13,7 @@ class Nivel{
 	
 	
 	method iniciar(){
+		keyboard.p().onPressDo{menu.juegoPausa()}
 		game.addVisualIn(self, game.at(0,0))
 		pacman.iniciar()
 		pacman.nivelActual(self)
@@ -22,6 +23,7 @@ class Nivel{
 		if(self.equals(nivel1)){
 			paredes1.cargar()
 		}
+		game.addVisual(logoOpciones)
 		game.addVisual(logo1)
 		game.addVisual(logo2)
 		grupoFantasma.introducir()

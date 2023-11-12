@@ -13,8 +13,8 @@ class Visual{
 
 object inicio inherits Visual(image= "PacManInicio.jpg",position= game.at(0,3)){
 		override method ejecutar(){
+			
 			super()
-			game.schedule(4000,{self.remover()})
 		}
 }
 
@@ -23,17 +23,45 @@ object menu inherits Visual(image = "fondo.png"){
 	
 	override method ejecutar(){
 		super()
+	
 		//soundPrincipal.play()
 		keyboard.enter().onPressDo{
+			game.clear()
 			nivel1.iniciar()
 		}
 		game.width(26)
 		game.height(20)
-		//keyboard.a().onPressDo({self.setting()})
+		keyboard.f().onPressDo({self.instruccionesIninio()})
+		keyboard.q().onPressDo{game.stop()} 
 	}
-	method setting(){
-		game.addVisual(ajustes)
-		keyboard.backspace().onPressDo{game.removeVisual(ajustes)}
+	
+	method instruccionesIninio(){
+		
+		game.addVisual(instruccionesMenu)
+		keyboard.b().onPressDo{game.removeVisual(instruccionesMenu)}
+	}
+	method instruccionesEnJuego(){
+		game.removeVisual(visualPausa)
+		game.addVisual(instruccionesJuego)
+		keyboard.b().onPressDo{game.removeVisual(instruccionesJuego)}
+		keyboard.p().onPressDo({self.juegoPausa()})
+	}
+	
+	method juegoPausa(){
+		game.addVisual(visualPausa)
+		keyboard.v().onPressDo{game.removeVisual(visualPausa)}
+		keyboard.f().onPressDo({self.instruccionesEnJuego()})
+		keyboard.q().onPressDo({
+			game.clear()
+			self.ejecutar() 
+			inicio.ejecutar()
+		})
+	}
+	
+	method volverAlMenu(){
+		game.clear()
+		inicio.ejecutar()
+		
 	}
 }
 
@@ -119,3 +147,22 @@ object terminado {
 	method image() = "gameover.jpg"
 }
 
+object logoOpciones {
+	var property position = game.at(20,11)
+		method image()= "logoOpciones.jpg"
+}
+
+object visualPausa {
+	var property position = game.at(4,5)
+	method image() = "visualPausa.jpg"
+}
+
+object instruccionesJuego{
+	var property position = game.at(4,4)
+	method image() = "instruccionesJuego.jpg"
+}
+
+object instruccionesMenu {
+	var property position = game.at(8,3)
+	method image() = "instruccionesMenu.jpg"
+}
