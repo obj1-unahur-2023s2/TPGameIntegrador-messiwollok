@@ -80,7 +80,7 @@ object gameOver inherits Visual(image = "fondo.png "){
 		super()
 		//soundPrincipal.stop()
 		//soundGameOver.play()
-		
+		game.clear()
 		game.schedule(500,{
 			game.addVisual(terminado)
 		})
@@ -89,6 +89,7 @@ object gameOver inherits Visual(image = "fondo.png "){
 
 object siguienteNivel inherits Visual(image="sigNivel.png"){
 	override method ejecutar(){
+		game.clear()
 		super()
 		keyboard.enter().onPressDo{
 			game.clear()
