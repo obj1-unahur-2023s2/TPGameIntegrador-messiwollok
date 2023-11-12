@@ -6,14 +6,21 @@ import elementos.*
 
 object pacman {
 	
-	var property position = game.at(1,18)
+	var property position = game.at(10,12)
 	const property posicion = position
 	var property direccion = null
 	var property puntos = 0
 	var property vidas = 3
-	
-	
+	var property nivelActual = 0
+	method image() = "pacman.png"
 	method puedePisarte(obj) = true
+	
+	method iniciar(){
+		game.addVisual(self)
+		controles.cargar()
+		self.mostrarContador()
+		game.whenCollideDo(self,{e => self.comer(e)})
+	}
 	
 	method comer(unElemento){
 		//requiere que todos los elementos que no sean paredes tengan el metodo "serComido"
@@ -50,7 +57,7 @@ object pacman {
 		vidas -= 1.max(0)
 		grupoVidas.image("vidas" + vidas + ".png")
 		//vuelve a su posicion inicial
-		position = game.at(1,1)
+		position = game.at(10,12)
 		//si se queda sin vidas finaliza el juego
 		if(vidas == 0) { 
 			game.removeVisual(grupoVidas)
@@ -61,7 +68,7 @@ object pacman {
 		game.removeVisual(self)
 		gameOver.ejecutar()
 	}
-	method image() = "pacman.png"
+	method mostrarContador(){game.addVisual(contador)}
 }
 
 object controles{
@@ -92,8 +99,3 @@ object poderes{
 	}
 }
 
-object gameOver {
-	method ejecutar(){
-		game.schedule(1000,{game.stop()})
-	}
-}
