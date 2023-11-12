@@ -68,6 +68,13 @@ object pacman {
 		game.removeVisual(self)
 		gameOver.ejecutar()
 	}
+	method pasarNivel(){
+		nivelActual.pasarNivel()
+	    nivelActual = nivelActual.siguiente()
+		vidas = 3		
+	}
+	
+	
 	method mostrarContador(){game.addVisual(contador)}
 }
 
@@ -77,7 +84,7 @@ object controles{
 		keyboard.a().onPressDo{pacman.direccion(izquierda)}
 		keyboard.s().onPressDo{pacman.direccion(abajo)}
 		keyboard.d().onPressDo{pacman.direccion(derecha)}
-		game.onTick(350, "moverPacman", {pacman.avanzar()}) //movimiento automatico, el nro indica los milisegundos entre cada paso
+		game.onTick(500, "moverPacman", {pacman.avanzar()}) //movimiento automatico, el nro indica los milisegundos entre cada paso
 	}
 }
 
@@ -98,4 +105,3 @@ object poderes{
 		
 	}
 }
-
