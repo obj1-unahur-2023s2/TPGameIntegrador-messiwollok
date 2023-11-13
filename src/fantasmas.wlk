@@ -6,7 +6,7 @@ import niveles.*
 import elementos.*
 
 class Fantasma{
-	var posicionInicial //necesita una posicion inicial para saber donde revivir cuando es comido
+	const posicionInicial //necesita una posicion inicial para saber donde revivir cuando es comido
 	var property position = posicionInicial
 	var puedeComerse = false //la condicion cambia cuando se asusta(pacman come la super pastilla)
 	var property numero
@@ -37,6 +37,10 @@ class Fantasma{
 		}
 	}
 	method estaAsustado() = puedeComerse
+	
+	method resetear(){
+		position = posicionInicial
+	}
 	
 	method asustarse(){ //se activa cuando pacman come la super pastilla
 		puedeComerse = true
@@ -116,10 +120,10 @@ class Fantasma{
 }
 
 object grupoFantasma {
-	const fantasma1 =new Fantasma(posicionInicial=game.at(9,10), numero = 2, direccion= derecha)
-	const fantasma2 =new Fantasma(posicionInicial=game.at(10,10), numero = 4)
-	const fantasma3 =new Fantasma(posicionInicial=game.at(11,10), numero = 1)
-	const fantasma4 =new Fantasma(posicionInicial=game.at(8,10), numero = 3)
+	const fantasma2 =new Fantasma(posicionInicial=game.at(9,10), numero = 2)
+	const fantasma4 =new Fantasma(posicionInicial=game.at(10,10), numero = 4)
+	const fantasma1 =new Fantasma(posicionInicial=game.at(11,10), numero = 1)
+	const fantasma3 =new Fantasma(posicionInicial=game.at(8,10), numero = 3)
 	
 	const fantasmas = [fantasma1,fantasma2,fantasma3,fantasma4]
 	
@@ -142,6 +146,10 @@ object grupoFantasma {
 	
 	method asustarGrupo(){
 		fantasmas.forEach{x=>x.asustarse()}
+	}
+	
+	method reseteo(){
+		fantasmas.forEach{x=>x.resetear()}
 	}
 	
 }
