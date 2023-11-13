@@ -41,7 +41,7 @@ class Cereza inherits Comida {
 
 
 class MenorVelocidad inherits Comida{
-	override method image() = "sandia.png" //deje la misma imagen del otro poder pero podria cambiarse 
+	override method image() = "pesa.png" //deje la misma imagen del otro poder pero podria cambiarse 
 	override method serComido(){
 		super()
 		poderes.menorVelocidad()
