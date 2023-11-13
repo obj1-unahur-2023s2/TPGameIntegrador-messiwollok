@@ -35,6 +35,7 @@ object pacman {
 	method resetear(){
 		contador.resetear()
 		position =game.at(0,9)
+		vidas = 3
 		nivelActual = nivel1
 	}
 	
