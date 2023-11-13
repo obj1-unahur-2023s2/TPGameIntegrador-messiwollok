@@ -173,5 +173,5 @@ object comida2 {
 		
 	}
 	
-}}
+
 }
