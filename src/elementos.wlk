@@ -26,7 +26,7 @@ object menu inherits Visual(image = "fondo.png"){
 		keyboard.enter().onPressDo{
 			game.clear()
 			pacman.resetear()
-			grupoVidas.resetear()
+	
 			grupoFantasma.reseteo()
 			nivel1.iniciar()
 			soundPrincipal.play()
@@ -75,7 +75,7 @@ object menu inherits Visual(image = "fondo.png"){
 		keyboard.q().onPressDo({
 			game.clear()
 			pacman.resetear()
-			grupoVidas.resetear()
+
 			grupoFantasma.reseteo()
 			self.ejecutar() 
 			inicio.ejecutar()
@@ -101,7 +101,7 @@ object victoria inherits Visual(image = "fondo.png"){
 		game.clear()
 		pacman.resetear()
 		grupoFantasma.reseteo()
-		grupoVidas.resetear()
+
 		menu.ejecutar()
 		inicio.ejecutar()
 	}
@@ -122,7 +122,7 @@ object gameOver inherits Visual(image = "fondo.png "){
 				game.clear()
 				pacman.resetear()
 				grupoFantasma.reseteo()
-				grupoVidas.resetear()
+		
 				menu.ejecutar() 
 				inicio.ejecutar()
 			})
