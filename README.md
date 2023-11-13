@@ -55,6 +55,7 @@ Este fue el proceso de armado del nivel dos, utilizamos paint para ir tapando la
    
 
   Los fantasmas se mueven aleatoriamente, por lo tanto, Pac-man debe avanzar por el tablero comiendo las cerezas. 
+  Pero tambien debera evitar que los fantasmas lo coman a el. Ya que solamente tiene tres vidas nuestro pacman.
   El objetivo del juego es lograr que Pac-man coma todas las cerezas y pastillas que se encuentran en el tablero. 
 
   Pac-Man tiene la posibilidad de comer una comida especial para poder tener un poder, el cual hace que los fantasmas sean vulnerables ante él. A su vez, en el tablero se encuentran pesas, de las cuales pacman tendra que evitar comer, debido a que las mismas lo realentizaran durante 10 segundos.
@@ -66,5 +67,5 @@ Este fue el proceso de armado del nivel dos, utilizamos paint para ir tapando la
 ## Otros
 
 - Programacion en objetos - Turno mañana - Universidad Nacional de Hurlingham
-- Versión de wollok
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Versión de wollok: 3.0.0
+- Una vez terminado, no tenemos problemas en que el repositorio sea público.
