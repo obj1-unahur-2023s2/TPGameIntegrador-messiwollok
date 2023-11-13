@@ -2,7 +2,7 @@ import wollok.game.*
 import pacman.*
 import elementos.*
 import niveles.*
-import visuales.*
+
 
 object juego {
 	method iniciarJuego(){
