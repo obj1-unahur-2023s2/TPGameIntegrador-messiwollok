@@ -26,15 +26,21 @@ El tablero del nivel 1 fue tomando forma a medida que ibamos avanzando con la vi
 
 Luego una vez ya finalizado el tablero, se agregaron los famosos fantasmas, que serian los enemigos de Pac-Man.
 Testeamos infinidad de veces, la colision de los mismo con las paredes y los movimientos aleatorios.
-Tambien testeamos cuando Pac-Man come una de las comidas especiales, esta misma haria que los fantasmas cambien de color, y pasen a ser vulnerables a que Pac-Man los pueda deborar.
+
 
 ![pac 4](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/f8e58e66-7ad6-48c8-aa2d-f58ebbe76cc5)
 
+Tambien testeamos cuando Pac-Man come una de las comidas especiales, esta misma haria que los fantasmas cambien de color, y pasen a ser vulnerables a que Pac-Man los pueda deborar.
+
 ![pac 3](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/545585b3-b203-4b7c-bc8e-49ed7067ccb6)
 
-Luego se le agregaron las comidas por todo el mapa, tanto para el nivel uno y se agregaron mas comida para el segundo mapa los cuales daban mas poderes al Pac-Man.
-
+Aca se puede apreciar como se agregaron las nuevas visuales al tablero, pero nos equivocamos en el orden de aniadir las visuales. Ya que las visuales de la comida deberian ir primero, para que los fantasmas y el mismo Pac-Man puedan superponerlos.
 ![pac 6](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/715bb670-db49-4295-8f93-33b2dc2e4fcf)
+
+
+
+
+
 
 
 
