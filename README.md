@@ -27,8 +27,7 @@ El tablero del nivel 1 fue tomando forma a medida que ibamos avanzando con la vi
 Luego una vez ya finalizado el tablero, se agregaron los famosos fantasmas, que serian los enemigos de Pac-Man.
 Testeamos infinidad de veces, la colision de los mismo con las paredes y los movimientos aleatorios.
 
-
-![pac 4](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/f8e58e66-7ad6-48c8-aa2d-f58ebbe76cc5)
+![escenario](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/141649633/9dfc808c-bddd-4173-9939-a37fa1313e5f)
 
 Tambien testeamos cuando Pac-Man come una de las comidas especiales, esta misma haria que los fantasmas cambien de color, y pasen a ser vulnerables a que Pac-Man los pueda deborar.
 
@@ -37,7 +36,8 @@ Tambien testeamos cuando Pac-Man come una de las comidas especiales, esta misma 
 Aca se puede apreciar como se agregaron las nuevas visuales al tablero, pero nos equivocamos en el orden de aniadir las visuales. Ya que las visuales de la comida deberian ir primero, para que los fantasmas y el mismo Pac-Man puedan superponerlos.
 ![pac 6](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/715bb670-db49-4295-8f93-33b2dc2e4fcf)
 
-
+Este fue el proceso de armado del nivel dos, utilizamos paint para ir tapando las ubicaciones que ya poniamos cerezas, y asi darle una ubicacion dentro del codigo de wollok.
+![tablero](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/141649633/2793fb1a-5f1b-43cc-9041-aa3d58b27fe9)
 
 
 
