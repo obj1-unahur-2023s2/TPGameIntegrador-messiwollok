@@ -15,14 +15,17 @@ class Fantasma{
 	var direccion = arriba
 	
 	method image() = "fantasma" + numero.toString() + ".png"
+	// el metodo de implementar los fantasmas deberia ser por color y no utilizar los numeros.
 	
 	method serComido(){
 		if (puedeComerse){ //si puede ser comido, desaparece y revive luego de un tiempo
 			position = posicionInicial
+			// separar en funciones
 			pacman.sumarPuntos(1000)
 			contador.actualizarPuntos()
 			game.removeVisual(self)
 			numero = skinPrevio
+			// una funcion para este metodo
 			game.schedule(5000, {
 				if(not game.hasVisual(self)){
 					game.addVisual(self)
@@ -45,13 +48,18 @@ class Fantasma{
 	method asustarse(){ //se activa cuando pacman come la super pastilla
 		puedeComerse = true
 		//aca deberia ir el cambio de visual a la de fantasma azul
+
+		// separar en funciones
 		skinPrevio = numero
 		game.removeVisual(self)
 		numero = 5
 		game.addVisual(self)
+		// separar en funciones
 		game.schedule(10000, { //deshabilita que pacman pueda comerlo, tras 10 seg
 			puedeComerse = false
 			//aca deberia ir el cambio de visual a la original
+
+			// separar en funciones
 			if(game.hasVisual(self)){
 				game.removeVisual(self)
 			}
@@ -62,7 +70,7 @@ class Fantasma{
 	
 	
 	method iniciar(){
-		game.onTick(500,"movimiento" ,{self.avanzar()
+		game.onTick(500,"movimiento" ,{self.avanzar() // dar un paso
 				game.schedule(3000, {self.direccionAzar()})
 			})
 	}
@@ -77,10 +85,11 @@ class Fantasma{
 		if(position.y()<0){position= game.at(position.x(), game.height()-1)}
 		if(position.x()<0){position= game.at(game.width()-1, position.y())}
 		if(position.x()>=game.width()){position= game.at(0, position.y())}
+// introducir dentro de una funcion
 	}
 	
 	method direccionAzar(){
-		direccion = direcciones.get(0.randomUpTo(3))
+		direccion = direcciones.get(0.randomUpTo(3)) // Usar otra funcion
 	}
 	
 	method moverAzar(){
@@ -103,6 +112,7 @@ class Fantasma{
 			 position = direccion.siguiente(position)
 			 
 		}
+//simplificar
 	}
 
 	method validarLugarLibre() {
@@ -132,7 +142,7 @@ object grupoFantasma {
 			game.addVisual(rival)
 			game.whenCollideDo(rival, { personaje =>
 				if(personaje.equals(pacman)and not(rival.estaAsustado())){personaje.morir()} // se maneja un método polimórfico
-			
+				//La funcion equals no tendria que utilizarse, seria mejor hacer el method de colision dentro del pacman.
 			
 			})
 			
@@ -141,11 +151,12 @@ object grupoFantasma {
 	
 	method moverGrupo(){
 		fantasmas.forEach( {rival => rival.iniciar()})
-			
+		// Esto deberia ir dentro de introducir	
 	}
 	
 	method asustarGrupo(){
 		fantasmas.forEach{x=>x.asustarse()}
+//	funcion tambien deberia ir dentro del pacman.
 	}
 	
 	method reseteo(){
