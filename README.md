@@ -43,11 +43,11 @@ Luego se le agregaron las comidas por todo el mapa, tanto para el nivel uno y se
 
    
 
-  Los fantasmas se mueven aleatoriamente, por lo tanto, Pac-man debe avanzar por el tablero comiendo las pelotitas. Debe comer todas para poder pasar de nievel.
+  Los fantasmas se mueven aleatoriamente, por lo tanto, Pac-man debe avanzar por el tablero comiendo las cerezas. 
+  El objetivo del juego es lograr que Pac-man coma todas las cerezas y pastillas que se encuentran en el tablero. 
 
-  Pac-Man tiene la posibilidad de comer una comida especial para poder tener un poder, el cual hace que los fantasmas sean vulnerables ante él.
+  Pac-Man tiene la posibilidad de comer una comida especial para poder tener un poder, el cual hace que los fantasmas sean vulnerables ante él. A su vez, en el tablero se encuentran pesas, de las cuales pacman tendra que evitar comer, debido a que las mismas lo realentizaran durante 10 segundos.
 
-  Los fantasmas, dependiendo el nivel, logran obtener poderes contra Pac-Man, dependiendo de ciertos factores que se veran en el juego. 
 
   
 
