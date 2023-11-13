@@ -54,7 +54,8 @@ object pacman {
 		if(position.y()>=game.height()){position = game.at(position.x(), 0)}
 		if(position.y()<0){position= game.at(position.x(), game.height()-1)}
 		if(position.x()<0){position= game.at(game.width()-1, position.y())}
-		if(position.x()>=game.width()){position= game.at(0, position.y())}		
+		if(position.x()>=game.width()){position= game.at(0, position.y())}	
+//funcion aparte ya que tambien lo utilizan los fantasmas
 	}
 	
 	
@@ -67,6 +68,7 @@ object pacman {
 		game.removeVisual(self)
 		position = posicion
 		game.addVisual(self)
+		// implementar una funcion
 		//si se queda sin vidas finaliza el juego
 		if(vidas == 0) { 
 			game.removeVisual(grupoVidas)
@@ -109,7 +111,7 @@ object poderes{
 	}
 	
 	method menorVelocidad(){
-		
+		//implimentar que sume la velocidad del mismo, cuando se coman 2 pesas. Y no provocar el error de que elimine un tick que no este.
 		game.removeTickEvent("moverPacman") //cancela el movimiento inicial
 		game.onTick(800, "velocidad", {pacman.avanzar()}) //inicia el poder, el nro indica los milisegundos entre cada paso
 		game.schedule(8000, { //el nro indica la duracion del poder en milisegundos
