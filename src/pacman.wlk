@@ -8,10 +8,10 @@ object pacman {
 	
 	var property position = game.at(0,9)
 	const property posicion = position
-	var property direccion = null
+	var property direccion = derecha
 	var property puntos = 0
 	var property vidas = 3
-	var property nivelActual = 0
+	var property nivelActual = nivel1
 	method image() = "pacman.png"
 	method puedePisarte(obj) = true
 	
@@ -30,6 +30,12 @@ object pacman {
 			self.retroceder()
 			self.direccion(null)
 		}
+	}
+	
+	method resetear(){
+		contador.resetear()
+		position =game.at(0,9)
+		nivelActual = nivel1
 	}
 	
 	method sumarPuntos(cant){puntos += cant}
@@ -57,7 +63,9 @@ object pacman {
 		vidas -= 1.max(0)
 		grupoVidas.image("vidas" + vidas + ".png")
 		//vuelve a su posicion inicial
+		game.removeVisual(self)
 		position = posicion
+		game.addVisual(self)
 		//si se queda sin vidas finaliza el juego
 		if(vidas == 0) { 
 			game.removeVisual(grupoVidas)
@@ -69,9 +77,14 @@ object pacman {
 		gameOver.ejecutar()
 	}
 	method pasarNivel(){
-		nivelActual.pasarNivel()
-	    nivelActual = nivelActual.siguiente()
+		
+		position = game.at(0,9)
+		nivelActual = nivel2
+	    nivel2.iniciar()
 		vidas = 3		
+	}
+	method movilizar(){
+		game.onTick(500, "moverPacman", {self.avanzar()})
 	}
 	
 	
@@ -84,7 +97,7 @@ object controles{
 		keyboard.a().onPressDo{pacman.direccion(izquierda)}
 		keyboard.s().onPressDo{pacman.direccion(abajo)}
 		keyboard.d().onPressDo{pacman.direccion(derecha)}
-		game.onTick(500, "moverPacman", {pacman.avanzar()}) //movimiento automatico, el nro indica los milisegundos entre cada paso
+		pacman.movilizar()//movimiento automatico, el nro indica los milisegundos entre cada paso
 	}
 }
 
@@ -94,14 +107,16 @@ object poderes{
 		
 	}
 	
-	method superVelocidad(){
+	method menorVelocidad(){
 		
 		game.removeTickEvent("moverPacman") //cancela el movimiento inicial
-		game.onTick(250, "velocidad", {pacman.avanzar()}) //inicia el poder, el nro indica los milisegundos entre cada paso
-		game.schedule(5000, { //el nro indica la duracion del poder en milisegundos
+		game.onTick(800, "velocidad", {pacman.avanzar()}) //inicia el poder, el nro indica los milisegundos entre cada paso
+		game.schedule(8000, { //el nro indica la duracion del poder en milisegundos
 			game.removeTickEvent("velocidad") //finaliza el poder
-			game.onTick(500, "moverPacman", {pacman.avanzar()}) //vuelve a iniciar el movimiento normal
+			 pacman.movilizar()//vuelve a iniciar el movimiento normal
 		})
 		
 	}
 }
+
+
