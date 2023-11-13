@@ -17,6 +17,7 @@ class Nivel{
 			grupoVidas.iniciar()
 			game.width(20)
 			game.height(20)
+			//equals anticuado, deberiamos implementar un metodo que nos de el nivel actual, y que a respectivo nivel se nos asignen los elementos del mismo.
 			if(self.equals(nivel1)){
 				comida1.cargar()
 				pacman.iniciar()
