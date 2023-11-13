@@ -8,37 +8,44 @@ import elementos.*
 
 class Nivel{
 	var property image
-	var property siguiente
 	var property pantallaSiguiente
 	
 	
 	method iniciar(){
-		keyboard.p().onPressDo({menu.juegoPausa()})
-		game.addVisualIn(self, game.at(0,0))
-		pacman.iniciar()
-		pacman.nivelActual(self)
-		grupoVidas.iniciar()
-		game.width(20)
-		game.height(20)
-		if(self.equals(nivel1)){
-			paredes1.cargar()
-		}
-		game.addVisual(logo1)
-		game.addVisual(logo2)
-		comida1.cargar()
-		grupoFantasma.introducir()
+			keyboard.p().onPressDo({menu.juegoPausa()})
+			game.addVisualIn(self, game.at(0,0))
+			grupoVidas.iniciar()
+			game.width(20)
+			game.height(20)
+			if(self.equals(nivel1)){
+				comida1.cargar()
+				pacman.iniciar()
+				paredes1.cargar()
+				keyboard.k().onPressDo({comida1.sacar()})
+			}
+			if(self.equals(nivel2)){
+				comida2.cargar()
+				pacman.iniciar()
+				paredes2.cargar()
+				keyboard.o().onPressDo({comida2.sacar()})
+			}
+			game.addVisual(logo1)
+			game.addVisual(logo2)
+			game.addVisual(logoOpciones)
+			grupoFantasma.introducir()
+			grupoFantasma.moverGrupo()
+			
 		
-		grupoFantasma.moverGrupo()
-
 	}
 	method pasarNivel(){
 		grupoVidas.resetear()
 		contador.resetear()
+		grupoFantasma.reseteo()
 		pantallaSiguiente.ejecutar()
 	}
 }
 
-const nivel1 = new Nivel(image="fondo.png", siguiente=nivel2, pantallaSiguiente = siguienteNivel)
-const nivel2 = new Nivel(image="fondo.png", siguiente=victoria, pantallaSiguiente = victoria)
+const nivel1 = new Nivel(image="fondo.png",  pantallaSiguiente = siguienteNivel)
+const nivel2 = new Nivel(image="fondo.png",  pantallaSiguiente = victoria)
 
 
