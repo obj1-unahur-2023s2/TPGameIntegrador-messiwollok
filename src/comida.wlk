@@ -11,6 +11,7 @@ class Comida {
 		pacman.sumarPuntos(100)
 		contador.actualizarPuntos()
 		game.removeVisual(self)
+		// sin equals y recibir el nivel
 		if(pacman.nivelActual().equals(nivel1)){
 			comida1.eliminar(self)
 		}
