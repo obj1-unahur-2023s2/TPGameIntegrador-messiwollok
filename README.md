@@ -9,19 +9,24 @@
 - Zolohaga Ruben.
 
 ## Capturas
-Primero empezamos formando la idea de como queriamos ser el pacman. Esta era una imagen ilustrativa de lo que podia llegar a ser. 
+Como principal tarea del proyecto nos enfocamos en desarrollar la idea de como queriamos que sea el aspecto del videojuego Pac-Man. Esta era una imagen ilustrativa de lo que podia llegar a ser. 
 
 ![pac 2](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/965f44f9-4682-4814-a032-cc827ddb8adf)
 
-Luego fuimos viendo como poner el pac man y las paredes, probando que chocara, probando colocar alguna comida. 
+Una vez tomada la desición del aspecto del juego.  
+Comenzamos con la adaptacion de una visual( tomada al azar como ejemplo) como paredes del escenario y la acoplacion de las pelotitas que luego seran reemplazadas por cerezas.
+Como paso siguiente tambien incluimos dentro del escenario al personaje principal, en este caso Pac-Man.
+En el caso de prueba, comprobamos la colision de pacman con las paredes, y la colision del mismo con la comida.
 
 ![pac 1](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/276dc993-f9a6-4426-80a0-d7251b8e5887)
 
-Los niveles fueron tomando forma a medida que ibamos avanzando. 
+El tablero del nivel 1 fue tomando forma a medida que ibamos avanzando con la visual del juego.
 
 ![pac 5](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/18ad0f78-089e-4eea-80ff-07c014c150e3)
 
-Luego se agregaron tanto los fantasmas y la posibilidad de comerlos. 
+Luego una vez ya finalizado el tablero, se agregaron los famosos fantasmas, que serian los enemigos de Pac-Man.
+Testeamos infinidad de veces, la colision de los mismo con las paredes y los movimientos aleatorios.
+Tambien testeamos cuando Pac-Man come una de las comidas especiales, esta misma haria que los fantasmas cambien de color, y pasen a ser vulnerables a que Pac-Man los pueda deborar.
 
 ![pac 4](https://github.com/obj1-unahur-2023s2/TPGameIntegrador-messiwollok/assets/48963265/f8e58e66-7ad6-48c8-aa2d-f58ebbe76cc5)
 
