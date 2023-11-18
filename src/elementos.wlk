@@ -12,30 +12,18 @@ class Visual{
 	method remover(){game.removeVisual(self)}
 }
 
-object inicio inherits Visual(image= "PacManInicio.jpg",position= game.at(0,3)){
-		
-}
-
-object menu inherits Visual(image = "fondo.png"){
-	const property ajustes = new Visual(image = "")
-	
+object menu inherits Visual(image = "PacManInicio.jpg"){
 	override method ejecutar(){
 		super()
-	
-		
 		keyboard.enter().onPressDo{
-			game.clear()
-			pacman.resetear()
-	
-			grupoFantasma.reseteo()
+			reseteoJuego.reset()
 			nivel1.iniciar()
 			soundPrincipal.play()
 		}
 		game.width(26)
 		game.height(20)
 		keyboard.f().onPressDo({self.instruccionesInicio()})
-		keyboard.q().onPressDo{game.stop()} 
-		
+		keyboard.q().onPressDo{game.stop()} 		
 	}
 	
 	method instruccionesInicio(){
@@ -55,8 +43,6 @@ object menu inherits Visual(image = "fondo.png"){
         	}
 			game.addVisual(instruccionesMenuDos)
 		}
-      
-    
 	}
 	method instruccionesEnJuego(){
 		game.removeVisual(visualPausa)
@@ -73,72 +59,54 @@ object menu inherits Visual(image = "fondo.png"){
 		keyboard.v().onPressDo{game.removeVisual(visualPausa)}
 		keyboard.f().onPressDo({self.instruccionesEnJuego()})
 		keyboard.q().onPressDo({
-			game.clear()
-			pacman.resetear()
-
-			grupoFantasma.reseteo()
+			reseteoJuego.reset()
 			self.ejecutar() 
-			inicio.ejecutar()
 		})
 	}
 	
 	method volverAlMenu(){
 		game.clear()
-		inicio.ejecutar()
+		self.ejecutar()
 	}
 }
 
-object victoria inherits Visual(image = "fondo.png"){
+object victoria inherits Visual(image = "ganaste.jpg"){
 	override method ejecutar(){
 		game.clear()
 		super()
-		game.addVisual(logrado)
 		//soundPrincipal.stop()
 		//soundVictoria.play()
 		keyboard.m().onPressDo{self.siguientePartida()}
 	}
 	method siguientePartida(){
-		game.clear()
-		pacman.resetear()
-		grupoFantasma.reseteo()
-
+		reseteoJuego.reset()
 		menu.ejecutar()
-		inicio.ejecutar()
 	}
 
 }
 
-object gameOver inherits Visual(image = "fondo.png"){
+object gameOver inherits Visual(image = "gameover2.jpg"){
 	override method ejecutar(){
-		super()
 		//soundPrincipal.stop()
 		//soundGameOver.play()
 		game.clear()
-		game.addVisual(self)
-		game.schedule(500,{
-			
-			game.addVisual(terminado)
-			keyboard.m().onPressDo({
-				game.clear()
-				pacman.resetear()
-				grupoFantasma.reseteo()
-		
-				menu.ejecutar() 
-				inicio.ejecutar()
-			})
+		super()
+		keyboard.m().onPressDo({
+			reseteoJuego.reset()
+			pacman.resetear()
+			grupoVidas.resetear()
+			menu.ejecutar() 
 		})
 	}
 }
 
-object siguienteNivel inherits Visual(image="fondo.png"){
+object siguienteNivel inherits Visual(image="visualEntreNivel.jpg"){
 	
 	override method ejecutar(){
 		game.clear()
 		super()
-		game.addVisual(intermedio)
 		keyboard.enter().onPressDo{
 			game.clear()
-			
 			pacman.pasarNivel()
 		}
 	}
@@ -160,17 +128,12 @@ object soundPrincipal {
 		game.sound("pacman-music.mp3").play()	
 	}
 }
-
-
-
 object grupoVidas{
 	var property position = game.at(22,7)
-	var property image = "vidas" + pacman.vidas() + ".png"
+	var property image = "vidas" + pacman.vidas().toString() + ".png"
 	method iniciar(){game.addVisual(self)}
 	method resetear(){
-		game.removeVisual(self)
 		image = "vidas3.png"
-		game.addVisual(self)
 	}
 }
 
@@ -185,28 +148,6 @@ object contador{
 		pacman.puntos(0)
 		self.actualizarPuntos()
 	}
-}
-
-object mostrarPuntos{
-	
-	var property text= "PUNTOS: " + pacman.puntos().toString()
-	var property position= game.at(13,10)
-	var property textColor= "#FFFFFF"
-	
-}
-
-object terminado {
-	method position() = game.at(0,3)
-	method image() = "gameover2.jpg"
-}
-
-object intermedio{
-	method position() = game.at(0,5)
-	method image() = "visualEntreNivel.jpg"
-}
-object logrado{
-	method position() = game.at(0,5)
-	method image() = "ganaste.jpg"
 }
 
 object logoOpciones {
@@ -233,4 +174,10 @@ object instruccionesMenu {
 	var property position = game.at(8,3)
 	method image() = "instruccionesMenu.jpg"
 }
-
+object reseteoJuego{
+	method reset(){
+		game.clear()
+		pacman.resetear()
+		grupoFantasma.reseteo()
+	}
+}

@@ -17,36 +17,45 @@ class Nivel{
 			grupoVidas.iniciar()
 			game.width(20)
 			game.height(20)
-			//equals anticuado, deberiamos implementar un metodo que nos de el nivel actual, y que a respectivo nivel se nos asignen los elementos del mismo.
-			if(self.equals(nivel1)){
-				comida1.cargar()
-				pacman.iniciar()
-				paredes1.cargar()
-				keyboard.k().onPressDo({comida1.sacar()})
-			}
-			if(self.equals(nivel2)){
-				comida2.cargar()
-				pacman.iniciar()
-				paredes2.cargar()
-				keyboard.o().onPressDo({comida2.sacar()})
-			}
 			game.addVisual(logo1)
 			game.addVisual(logo2)
 			game.addVisual(logoOpciones)
-			grupoFantasma.introducir()
-			grupoFantasma.moverGrupo()
 			
-		
 	}
 	method pasarNivel(){
 		grupoVidas.resetear()
-		contador.resetear()
 		grupoFantasma.reseteo()
 		pantallaSiguiente.ejecutar()
 	}
 }
 
-const nivel1 = new Nivel(image="fondo.png",  pantallaSiguiente = siguienteNivel)
-const nivel2 = new Nivel(image="fondo.png",  pantallaSiguiente = victoria)
+
+object nivel1 inherits Nivel(image="fondo.png", pantallaSiguiente = siguienteNivel){
+	override method iniciar(){
+		super()
+		comida1.cargar()
+		pacman.iniciar()
+		paredes1.cargar()
+		keyboard.k().onPressDo({comida1.sacar()})
+		grupoFantasma.introducir()
+	}
+	method eliminarComida(comida){
+		comida1.eliminar(comida)
+	}
+}
+
+object nivel2 inherits Nivel(image="fondo.png", pantallaSiguiente = victoria){
+	override method iniciar(){
+		super()
+		comida2.cargar()
+		pacman.iniciar()
+		paredes2.cargar()
+		keyboard.o().onPressDo({comida2.sacar()})
+		grupoFantasma.introducir()
+	}
+	method eliminarComida(comida){
+		comida2.eliminar(comida)
+	}
+}
 
 

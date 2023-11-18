@@ -13,7 +13,7 @@ object juego {
 		
 		self.configVentana()
 		menu.ejecutar()
-		inicio.ejecutar()
+
 	}
 	method configVentana(){
 		game.title("Pacman")	

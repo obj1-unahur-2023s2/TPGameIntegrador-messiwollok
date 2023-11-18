@@ -6,34 +6,30 @@ import niveles.*
 import elementos.*
 
 class Fantasma{
-	const posicionInicial //necesita una posicion inicial para saber donde revivir cuando es comido
+	const posicionInicial 
 	var property position = posicionInicial
-	var puedeComerse = false //la condicion cambia cuando se asusta(pacman come la super pastilla)
-	var property numero
-	var skinPrevio = 0
+	var puedeComerse = false 
 	const direcciones = [abajo,izquierda, derecha, arriba]
 	var direccion = arriba
+	var estado = "normal"
+	var  property color 
 	
-	method image() = "fantasma" + numero.toString() + ".png"
-	// el metodo de implementar los fantasmas deberia ser por color y no utilizar los numeros.
+	var property image = "fantasma" + color + ".png"
 	
-	method serComido(){
-		if (puedeComerse){ //si puede ser comido, desaparece y revive luego de un tiempo
+	method serComido(nivelActual){
+		if (puedeComerse){
 			position = posicionInicial
-			// separar en funciones
 			pacman.sumarPuntos(1000)
 			contador.actualizarPuntos()
 			game.removeVisual(self)
-			numero = skinPrevio
-			// una funcion para este metodo
+			image = "fantasma" + color + ".png"
 			game.schedule(5000, {
 				if(not game.hasVisual(self)){
 					game.addVisual(self)
 				}
 			})
-			
-			} //el nro indica el tiempo que tarda en revivir
-		else{ //si no puede ser comido, pacman muere al intentar comerlo, y resta 500 puntos
+			} 
+		else{
 			pacman.morir()
 			pacman.restarPuntos(500)
 			contador.actualizarPuntos()
@@ -45,74 +41,54 @@ class Fantasma{
 		position = posicionInicial
 	}
 	
-	method asustarse(){ //se activa cuando pacman come la super pastilla
+	method cambiarImagen(){
+		if (estado == "normal") {
+         	image = "fantasma" + color + ".png"
+         	estado = "asustado"
+      } else{
+      		game.removeVisual(self)
+         	image = "fantasma_asustado.png"
+         	estado = "normal"
+         	game.addVisual(self)
+      }
+	}
+	
+	method asustarse(){ 
 		puedeComerse = true
-		//aca deberia ir el cambio de visual a la de fantasma azul
-
-		// separar en funciones
-		skinPrevio = numero
-		game.removeVisual(self)
-		numero = 5
-		game.addVisual(self)
-		// separar en funciones
-		game.schedule(10000, { //deshabilita que pacman pueda comerlo, tras 10 seg
+		estado = "asustado"
+		self.cambiarImagen()
+		game.schedule(10000, { 
 			puedeComerse = false
-			//aca deberia ir el cambio de visual a la original
-
-			// separar en funciones
 			if(game.hasVisual(self)){
 				game.removeVisual(self)
 			}
-			numero = skinPrevio
+			self.cambiarImagen()
 			game.addVisual(self)
 		})
 	}
 	
-	
 	method iniciar(){
-		game.onTick(500,"movimiento" ,{self.avanzar() // dar un paso
-				game.schedule(3000, {self.direccionAzar()})
-			})
+		game.onTick(1000,"movimiento" ,{
+			self.avanzar()
+			game.schedule(500, {self.direccionAzar()})
+		})
 	}
-	
 	method avanzar(){
-		
-		//da un paso hacia la direccion indicada en su variable
 		if(direccion!=null)
-			self.movete()	
-		// hace que no salga del tablero	
-		if(position.y()>=game.height()){position = game.at(position.x(), 0)}
-		if(position.y()<0){position= game.at(position.x(), game.height()-1)}
-		if(position.x()<0){position= game.at(game.width()-1, position.y())}
-		if(position.x()>=game.width()){position= game.at(0, position.y())}
-// introducir dentro de una funcion
+			self.moverAzar()	
 	}
-	
+
 	method direccionAzar(){
-		direccion = direcciones.get(0.randomUpTo(3)) // Usar otra funcion
+		direccion = direcciones.get(0.randomUpTo(3))
 	}
 	
 	method moverAzar(){
-		//obtiene una direccion al azar y valida si es posible moverse
-		self.direccionAzar()
-		self.validarLugarLibre()
+		self.obtenerYValidarDireccionAlAzar()
 	}
 	
-	method movete() {
-		self.validarLugarLibre()
-		const posAlLado = direccion.siguiente(position) 
-		const pos = game.getObjectsIn(posAlLado)
-			.all{ obj => obj.puedePisarte(self) } 
-		
-		if(not pos){
-			self.direccionAzar()
-			
-		}
-		else{
-			 position = direccion.siguiente(position)
-			 
-		}
-//simplificar
+	method obtenerYValidarDireccionAlAzar() {
+   		self.direccionAzar()
+   		self.validarLugarLibre()	
 	}
 
 	method validarLugarLibre() {
@@ -122,6 +98,9 @@ class Fantasma{
 		
 		if (!lugarLibre) 
 			self.moverAzar()
+		else{
+			position = posAlLado
+		}
 	}
 	
 	method puedePisarte(_) = true
@@ -130,28 +109,18 @@ class Fantasma{
 }
 
 object grupoFantasma {
-	const fantasma2 =new Fantasma(posicionInicial=game.at(9,10), numero = 2)
-	const fantasma4 =new Fantasma(posicionInicial=game.at(10,10), numero = 4)
-	const fantasma1 =new Fantasma(posicionInicial=game.at(11,10), numero = 1)
-	const fantasma3 =new Fantasma(posicionInicial=game.at(8,10), numero = 3)
+	const fantasma2 =new Fantasma(posicionInicial=game.at(9,10), color = "rojo")
+	const fantasma4 =new Fantasma(posicionInicial=game.at(10,10), color = "verde")
+	const fantasma1 =new Fantasma(posicionInicial=game.at(11,10), color = "celeste")
+	const fantasma3 =new Fantasma(posicionInicial=game.at(8,10), color = "amarillo")
 	
 	const fantasmas = [fantasma1,fantasma2,fantasma3,fantasma4]
 	
 	method introducir(){
 		fantasmas.forEach( {rival => 
 			game.addVisual(rival)
-			game.whenCollideDo(rival, { personaje =>
-				if(personaje.equals(pacman)and not(rival.estaAsustado())){personaje.morir()} // se maneja un método polimórfico
-				//La funcion equals no tendria que utilizarse, seria mejor hacer el method de colision dentro del pacman.
-			
+			rival.iniciar()
 			})
-			
-			})
-	}
-	
-	method moverGrupo(){
-		fantasmas.forEach( {rival => rival.iniciar()})
-		// Esto deberia ir dentro de introducir	
 	}
 	
 	method asustarGrupo(){
@@ -164,5 +133,4 @@ object grupoFantasma {
 	}
 	
 }
-
 
