@@ -11,7 +11,22 @@ object pacman {
 	var property puntos = 0
 	var property vidas = 3
 	var property nivelActual = nivel1
-	method image() = "pacman.png"
+	var  bocaAbierta = true
+	method image() = 
+        if (bocaAbierta) {
+            "pacman_abierto.png"
+        } else {
+            "pacman_cerrado.png"
+        }
+    
+     method alternarBoca() {
+        bocaAbierta = !bocaAbierta
+    }
+    
+    method abrirYCerrarBoca() {
+        game.onTick(500, "alternarBoca", { self.alternarBoca() })
+    }
+    
 	method puedePisarte(obj) = true
 	
 	method iniciar(){
@@ -20,6 +35,7 @@ object pacman {
 		self.mostrarContador()
 		game.whenCollideDo(self,{e => self.comer(e)})
 		self.movilizar()
+		self.abrirYCerrarBoca()
 	}	
 	method sumarPuntos(cant){puntos += cant}
 	method restarPuntos(cant){puntos = 0.max(puntos - cant)}
