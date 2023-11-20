@@ -84,10 +84,10 @@ object comida1 {
 
 	
 	
-	method eliminar(comida){
+	method eliminar(comida,nivel){
 		
 		comidasNormales.remove(comida)		
-		if(comidasNormales.isEmpty()) { game.schedule(500, { victoria.ejecutar() }) }	
+		if(comidasNormales.isEmpty()) { game.schedule(500, { nivel.pantallaSiguiente().ejecutar() }) }	
 		
 	}
 	method sacar(){
@@ -135,9 +135,9 @@ object comida2 {
 		comidasConEfecto.forEach({x=>x.iniciar()})
 	}
 
-	method eliminar(comida){
+	method eliminar(comida,nivel){
 		comidasNormales.remove(comida)		
-		if(comidasNormales.isEmpty()) { game.schedule(500, { victoria.ejecutar() }) }
+		if(comidasNormales.isEmpty()) { game.schedule(500, { nivel.pantallaSiguiente().ejecutar() }) }
 	}
 	
 	method sacar(){

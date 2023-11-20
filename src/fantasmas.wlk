@@ -24,7 +24,7 @@ class Fantasma{
 			game.removeVisual(self)
 			image = "fantasma" + color + ".png"
 			game.schedule(5000, {
-				if(not game.hasVisual(self)){
+				if(!game.hasVisual(self)){
 					game.addVisual(self)
 				}
 			})
@@ -68,16 +68,12 @@ class Fantasma{
 	}
 	
 	method iniciar(){
-		game.onTick(1000,"movimiento" ,{
-			self.avanzar()
+		game.onTick(500,"movimiento" ,{
+			self.moverAzar()
 			game.schedule(500, {self.direccionAzar()})
 		})
 	}
-	method avanzar(){
-		if(direccion!=null)
-			self.moverAzar()	
-	}
-
+	
 	method direccionAzar(){
 		direccion = direcciones.get(0.randomUpTo(3))
 	}
@@ -109,12 +105,12 @@ class Fantasma{
 }
 
 object grupoFantasma {
-	const fantasma2 =new Fantasma(posicionInicial=game.at(9,10), color = "rojo")
-	const fantasma4 =new Fantasma(posicionInicial=game.at(10,10), color = "verde")
-	const fantasma1 =new Fantasma(posicionInicial=game.at(11,10), color = "celeste")
-	const fantasma3 =new Fantasma(posicionInicial=game.at(8,10), color = "amarillo")
+	const fantasmaRojo =new Fantasma(posicionInicial=game.at(9,10), color = "rojo")
+	const fantasmaVerde =new Fantasma(posicionInicial=game.at(10,10), color = "verde")
+	const fantasmaCeleste =new Fantasma(posicionInicial=game.at(11,10), color = "celeste")
+	const fantasmaAmarillo =new Fantasma(posicionInicial=game.at(8,10), color = "amarillo")
 	
-	const fantasmas = [fantasma1,fantasma2,fantasma3,fantasma4]
+	const fantasmas = [fantasmaRojo,fantasmaVerde,fantasmaCeleste,fantasmaAmarillo]
 	
 	method introducir(){
 		fantasmas.forEach( {rival => 
@@ -125,7 +121,6 @@ object grupoFantasma {
 	
 	method asustarGrupo(){
 		fantasmas.forEach{x=>x.asustarse()}
-//	funcion tambien deberia ir dentro del pacman.
 	}
 	
 	method reseteo(){

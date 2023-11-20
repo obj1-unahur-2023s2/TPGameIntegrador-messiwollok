@@ -85,7 +85,7 @@ object victoria inherits Visual(image = "ganaste.jpg"){
 
 }
 
-object gameOver inherits Visual(image = "gameover2.jpg"){
+object gameOver inherits Visual(image = "gameover.jpg"){
 	override method ejecutar(){
 		//soundPrincipal.stop()
 		//soundGameOver.play()

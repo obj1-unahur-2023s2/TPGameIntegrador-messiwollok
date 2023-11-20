@@ -69,9 +69,7 @@ object pacman {
 		if(position.x()>=game.width()){position= game.at(0, position.y())}
 	}
 	method volverInicio(){
-		game.removeVisual(self)
 		position = game.at(0,9)
-		game.addVisual(self)
 	}
 	method morir(){
 		vidas -= 1.max(0)

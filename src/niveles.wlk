@@ -40,7 +40,7 @@ object nivel1 inherits Nivel(image="fondo.png", pantallaSiguiente = siguienteNiv
 		grupoFantasma.introducir()
 	}
 	method eliminarComida(comida){
-		comida1.eliminar(comida)
+		comida1.eliminar(comida,self)
 	}
 }
 
@@ -54,7 +54,7 @@ object nivel2 inherits Nivel(image="fondo.png", pantallaSiguiente = victoria){
 		grupoFantasma.introducir()
 	}
 	method eliminarComida(comida){
-		comida2.eliminar(comida)
+		comida2.eliminar(comida,self)
 	}
 }
 
