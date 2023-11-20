@@ -5,6 +5,19 @@ import pared.*
 import niveles.*
 import elementos.*
 
+class Color {
+	const property string
+	
+	method imagenFantasma(){
+		return "fantasma"+string+".png"
+	}
+}
+
+const rojo = new Color (string = "rojo")
+const celeste = new Color (string = "celeste")
+const amarillo = new Color (string = "amarillo")
+const verde = new Color (string = "verde")
+
 class Fantasma{
 	const posicionInicial 
 	var property position = posicionInicial
@@ -14,7 +27,7 @@ class Fantasma{
 	var estado = "normal"
 	var  property color 
 	
-	var property image = "fantasma" + color + ".png"
+	var property image = color.imagenFantasma()
 	
 	method serComido(nivelActual){
 		if (puedeComerse){
@@ -22,7 +35,7 @@ class Fantasma{
 			pacman.sumarPuntos(1000)
 			contador.actualizarPuntos()
 			game.removeVisual(self)
-			image = "fantasma" + color + ".png"
+			self.cambiarImagen()
 			game.schedule(5000, {
 				if(!game.hasVisual(self)){
 					game.addVisual(self)
@@ -43,7 +56,7 @@ class Fantasma{
 	
 	method cambiarImagen(){
 		if (estado == "normal") {
-         	image = "fantasma" + color + ".png"
+         	image = color.imagenFantasma()
          	estado = "asustado"
       } else{
       		game.removeVisual(self)
@@ -105,10 +118,10 @@ class Fantasma{
 }
 
 object grupoFantasma {
-	const fantasmaRojo =new Fantasma(posicionInicial=game.at(9,10), color = "rojo")
-	const fantasmaVerde =new Fantasma(posicionInicial=game.at(10,10), color = "verde")
-	const fantasmaCeleste =new Fantasma(posicionInicial=game.at(11,10), color = "celeste")
-	const fantasmaAmarillo =new Fantasma(posicionInicial=game.at(8,10), color = "amarillo")
+	const fantasmaRojo =new Fantasma(posicionInicial=game.at(9,10), color = rojo)
+	const fantasmaVerde =new Fantasma(posicionInicial=game.at(10,10), color = verde)
+	const fantasmaCeleste =new Fantasma(posicionInicial=game.at(11,10), color = celeste)
+	const fantasmaAmarillo =new Fantasma(posicionInicial=game.at(8,10), color = amarillo)
 	
 	const fantasmas = [fantasmaRojo,fantasmaVerde,fantasmaCeleste,fantasmaAmarillo]
 	
