@@ -44,8 +44,7 @@ object pacman {
 		try
 			unElemento.serComido(nivelActual)
 		catch e{
-			self.retroceder()
-			self.direccion(null)
+			self.frenar()
 		}
 	}
 	method resetear(){
@@ -54,7 +53,7 @@ object pacman {
 		vidas = 3
 		nivelActual = nivel1
 	}
-	method retroceder(){
+	method frenar(){
 		position = direccion.opuesto().siguiente(position)
 	}
 	method avanzar(){

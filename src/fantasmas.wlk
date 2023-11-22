@@ -26,21 +26,17 @@ class Fantasma{
 	var direccion = arriba
 	var estado = "normal"
 	var  property color 
+	var estaEnTablero = true
 	
 	var property image = color.imagenFantasma()
 	
 	method serComido(nivelActual){
 		if (puedeComerse){
-			position = posicionInicial
 			pacman.sumarPuntos(1000)
 			contador.actualizarPuntos()
 			game.removeVisual(self)
-			self.cambiarImagen()
-			game.schedule(5000, {
-				if(!game.hasVisual(self)){
-					game.addVisual(self)
-				}
-			})
+			estaEnTablero = false
+			position = posicionInicial
 			} 
 		else{
 			pacman.morir()
@@ -56,34 +52,36 @@ class Fantasma{
 	
 	method cambiarImagen(){
 		if (estado == "normal") {
-         	image = color.imagenFantasma()
-         	estado = "asustado"
-      } else{
-      		game.removeVisual(self)
+			game.removeVisual(self)
          	image = "fantasma_asustado.png"
+         	estado = "asustado"
+         	game.addVisual(self)
+      } else{
+      		if(estaEnTablero){
+				game.removeVisual(self)
+			}
+         	image = color.imagenFantasma()
          	estado = "normal"
          	game.addVisual(self)
       }
 	}
 	
 	method asustarse(){ 
+		if (!puedeComerse){
 		puedeComerse = true
-		estado = "asustado"
 		self.cambiarImagen()
 		game.schedule(10000, { 
 			puedeComerse = false
-			if(game.hasVisual(self)){
-				game.removeVisual(self)
-			}
 			self.cambiarImagen()
-			game.addVisual(self)
 		})
+		
+		}
 	}
 	
 	method iniciar(){
 		game.onTick(500,"movimiento" ,{
 			self.moverAzar()
-			game.schedule(500, {self.direccionAzar()})
+			game.schedule(1000, {self.direccionAzar()})
 		})
 	}
 	
@@ -93,6 +91,12 @@ class Fantasma{
 	
 	method moverAzar(){
 		self.obtenerYValidarDireccionAlAzar()
+		self.limitarCostadosTablero()
+	}
+
+	method limitarCostadosTablero(){
+		if(position.x()==2 and position.y()==9){position= game.at(position.x()+1, position.y())}
+		if(position.x()==game.width()-2 and position.y()==9){position= game.at(position.x()-1, position.y())}
 	}
 	
 	method obtenerYValidarDireccionAlAzar() {
@@ -102,8 +106,7 @@ class Fantasma{
 
 	method validarLugarLibre() {
 		const posAlLado = direccion.siguiente(position) 
-		const lugarLibre = game.getObjectsIn(posAlLado)
-			.all{ obj => obj.puedePisarte(self) } 
+		const lugarLibre = game.getObjectsIn(posAlLado).all{ obj => obj.puedePisarte(self) } 
 		
 		if (!lugarLibre) 
 			self.moverAzar()
