@@ -41,6 +41,8 @@ object pacman {
 	method restarPuntos(cant){puntos = 0.max(puntos - cant)}
 	
 	method comer(unElemento){
+		game.sound("pacman-comer.mp3").play()
+
 		try
 			unElemento.serComido(nivelActual)
 		catch e{
@@ -74,7 +76,8 @@ object pacman {
 		vidas -= 1.max(0)
 		grupoVidas.image("vidas" + vidas.toString() + ".png")
 		self.volverInicio()
-		if(vidas == 0) { 
+		if(vidas == 0) {
+			game.sound("pacman-muerte.mp3").play()
 			game.removeVisual(grupoVidas)
 			self.perderJuego()
 		}
@@ -109,6 +112,8 @@ object poderes{
 	var velocidad = 800
 	method superPastilla(){
 		grupoFantasma.asustarGrupo()
+		game.sound("pacman-poder.mp3").play()
+
 	}
 	method menorVelocidad(){
 		 game.removeTickEvent("moverPacman")
