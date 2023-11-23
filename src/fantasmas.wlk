@@ -49,6 +49,8 @@ class Fantasma{
 	
 	method resetear(){
 		position = posicionInicial
+		image = color.imagenFantasma()
+		puedeComerse = false 
 	}
 	
 	method cambiarImagen(){
