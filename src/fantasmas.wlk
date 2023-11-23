@@ -32,6 +32,7 @@ class Fantasma{
 	
 	method serComido(nivelActual){
 		if (puedeComerse){
+			game.sound("pacman-comerfantasma.mp3").play()
 			pacman.sumarPuntos(1000)
 			contador.actualizarPuntos()
 			game.removeVisual(self)
